@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
+        android:layout_marginBottom="4dp"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_height="wrap_content"
+                                                   android:layout_width="match_parent"
+                                                   xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   android:padding="16dp"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="fat ass devil with a mouth"
+              style="@style/TextNormal"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="0dp"
+              android:layout_marginTop="0dp" android:id="@+id/text_entry_item_title"/>
+    <TextView android:layout_width="wrap_content"
+              style="@style/TextCurrencySmall"
+              android:layout_height="wrap_content"
+              android:id="@+id/text_entry_item_currency" android:text="Ksh"
+              app:layout_constraintEnd_toStartOf="@+id/text_entry_item_amount" android:layout_marginEnd="8dp"
+              app:layout_constraintBottom_toBottomOf="@+id/text_entry_item_amount"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:id="@+id/text_entry_item_amount" android:text="2,300"
+              style="@style/TextNumberNormal"
+              app:layout_constraintEnd_toEndOf="parent"
+              android:layout_marginTop="0dp" app:layout_constraintTop_toTopOf="parent"/>
+    <TextView style="@style/TextLabelSmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1 hour ago"
+              android:id="@+id/text_entry_item_datetime"
+              android:layout_marginTop="8dp"
+              app:layout_constraintTop_toBottomOf="@+id/text_entry_item_title"
+              app:layout_constraintStart_toStartOf="@+id/text_entry_item_title" android:layout_marginStart="0dp"/>
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  app:layout_constraintTop_toBottomOf="@+id/text_entry_item_datetime"
+                  android:id="@+id/layout_entry_item_label" android:layout_marginBottom="0dp"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  android:gravity="center_vertical"
+                  android:layout_marginTop="16dp"
+                  app:layout_constraintStart_toStartOf="parent"
+                  android:layout_marginStart="0dp">
+        <View android:background="#777ddd" android:layout_width="8dp"
+              android:id="@+id/view_entry_item_label_color_dot" android:layout_height="8dp">
+
+        </View>
+        <TextView android:layout_marginStart="8dp" style="@style/TextSmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Entertainment"
+                  android:id="@+id/text_entry_item_label"
+                  android:gravity="center_vertical"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
