@@ -43,12 +43,12 @@ class EntriesFragment : androidx.fragment.app.Fragment() {
 
         val entriesListFragment = EntriesListFragment()
         val bundle = Bundle()
-        bundle.putString("entry_type","This is one")
+        bundle.putString("entry_type","income")
         entriesListFragment.arguments = bundle
 
         val entriesListFragment1 = EntriesListFragment()
         val bundle1 = Bundle()
-        bundle1.putString("entry_type","This is two")
+        bundle1.putString("entry_type","expense")
         entriesListFragment1.arguments = bundle1
 
         adapter.addFragment(entriesListFragment, "Entries")

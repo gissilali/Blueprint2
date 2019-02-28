@@ -9,10 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import android.widget.ScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
@@ -59,17 +61,7 @@ class DashboardFragment : androidx.fragment.app.Fragment() {
 
         initializeChart(view)
 
-//        initializeTabLayout(view)
-
-        val viewPager = view.view_pager_fragment_dash_recent_list
-        val tabLayout = view.tabs_fragment_dash_entry_filter
-
-        setupViewPager(viewPager)
-        tabLayout.setupWithViewPager(viewPager)
-
-        viewPager.offscreenPageLimit = 2
-
-        setupViewPager(viewPager)
+        initializeTabLayout(view)
 
 //        initializeRecentList(view, "income")
 
@@ -77,11 +69,11 @@ class DashboardFragment : androidx.fragment.app.Fragment() {
     }
 
     private fun initializeRecentList(view: View?, entryType : String) {
-        val entriesList = view!!.findViewById<RecyclerView>(R.id.list_fragment_dash_recent_entries)
+//        val entriesList = view!!.findViewById<RecyclerView>(R.id.list_fragment_dash_recent_entries)
 
 //        val emptyStatus = view!!.findViewById<FrameLayout>(R.id.recent_empty)
 
-        val entries = entriesController.fetchEntries(entryType).take(4)
+//        val entries = entriesController.fetchEntries(entryType).take(4)
 
 //        if (entries.isEmpty()) {
 //            emptyStatus.visibility = View.VISIBLE
@@ -90,12 +82,12 @@ class DashboardFragment : androidx.fragment.app.Fragment() {
 //        }
 
 
-        val entriesAdapter = EntryAdapter(entries)
+//        val entriesAdapter = EntryAdapter(entries)
 
 
-        entriesList.adapter = entriesAdapter
+//        entriesList.adapter = entriesAdapter
 
-        entriesList.layoutManager = LinearLayoutManager(context)
+//        entriesList.layoutManager = LinearLayoutManager(context)
     }
 
     override fun onAttach(context: Context) {
@@ -149,15 +141,55 @@ class DashboardFragment : androidx.fragment.app.Fragment() {
     private fun initializeTabLayout(view: View) {
         val tabLayout = view!!.findViewById<TabLayout>(R.id.tabs_fragment_dash_entry_filter)
 
+        tabLayout.getTabAt(0)!!.select()
+
+        val bundle = Bundle()
+        bundle.putString("entry_type", "income")
+        val fragment =  EntriesListFragment()
+        fragment.arguments = bundle
+
+        val fragmentManager = childFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(R.id.layout_fragment_dash_recent_fragment_container, fragment)
+        fragmentTransaction.commit()
+
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when(tab.position) {
                     0 -> {
-                        initializeRecentList(view, "income")
+                        val bundle = Bundle()
+                        bundle.putString("entry_type", "income")
+                        val fragment =  EntriesListFragment()
+                        fragment.arguments = bundle
+
+                        val fragmentManager = childFragmentManager
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+
+                        fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_from_right)
+
+//                        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//
+                        fragmentTransaction.replace(R.id.layout_fragment_dash_recent_fragment_container, fragment)
+                        fragmentTransaction.commit()
+
+//                        initializeRecentList(view, "income")
                     }
 
                     1 -> {
-                        initializeRecentList(view, "expense")
+                        val bundle = Bundle()
+                        bundle.putString("entry_type", "expense")
+                        val fragment =  EntriesListFragment()
+                        fragment.arguments = bundle
+
+                        val fragmentManager = childFragmentManager
+                        val fragmentTransaction = fragmentManager.beginTransaction()
+
+                        fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_from_left)
+
+                        fragmentTransaction.replace(R.id.layout_fragment_dash_recent_fragment_container, fragment)
+                        fragmentTransaction.commit()
+//                        initializeRecentList(view, "expense")
                     }
                 }
             }
@@ -177,29 +209,29 @@ class DashboardFragment : androidx.fragment.app.Fragment() {
 
         val entriesListFragment = EntriesListFragment()
         val bundle = Bundle()
-        bundle.putString("entry_type","This is one")
+        bundle.putString("entry_type","income")
         entriesListFragment.arguments = bundle
 
         val entriesListFragment1 = EntriesListFragment()
         val bundle1 = Bundle()
-        bundle1.putString("entry_type","This is two")
+        bundle1.putString("entry_type","expense")
         entriesListFragment1.arguments = bundle1
 
-        adapter.addFragment(entriesListFragment, "Entries")
-        adapter.addFragment(entriesListFragment1, "Entries 2")
+        adapter.addFragment(entriesListFragment, "Income")
+        adapter.addFragment(entriesListFragment1, "Expenses")
 
         viewPager.adapter = adapter
 
 
     }
 
-    inner class ViewPagerAdapter(manager: FragmentManager) : PagerAdapter() {
-        override fun isViewFromObject(view: View, `object`: Any): Boolean {
-            return view == `object`
-        }
-
+    inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
         private val mFragmentList = ArrayList<Fragment>()
         private val mFragmentTitleList = ArrayList<String>()
+
+        override fun getItem(position: Int): Fragment {
+            return mFragmentList[position]
+        }
 
         override fun getCount(): Int {
             return mFragmentList.size
@@ -213,15 +245,5 @@ class DashboardFragment : androidx.fragment.app.Fragment() {
         override fun getPageTitle(position: Int): CharSequence? {
             return mFragmentTitleList[position]
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DashboardFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
     }
 }

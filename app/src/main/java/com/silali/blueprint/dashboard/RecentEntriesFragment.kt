@@ -37,7 +37,7 @@ class RecentEntriesFragment : Fragment() {
 
         val entries = EntriesController().fetchEntries(entryType).take(4)
 
-        val entriesList = recyclerView!!.findViewById<RecyclerView>(R.id.list_fragment_dash_recent_entries)
+        val entriesList = recyclerView!!.findViewById<RecyclerView>(R.id.list_fragment_recent_entries)
 
         val entriesAdapter = EntryAdapter(entries)
 
