@@ -166,7 +166,7 @@ class DashboardFragment : androidx.fragment.app.Fragment() {
                         val fragmentManager = childFragmentManager
                         val fragmentTransaction = fragmentManager.beginTransaction()
 
-                        fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_from_right)
+                        fragmentTransaction.setCustomAnimations(R.anim.slide_from_left, 0)
 
 //                        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
 //
@@ -185,7 +185,7 @@ class DashboardFragment : androidx.fragment.app.Fragment() {
                         val fragmentManager = childFragmentManager
                         val fragmentTransaction = fragmentManager.beginTransaction()
 
-                        fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_from_left)
+                        fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, 0)
 
                         fragmentTransaction.replace(R.id.layout_fragment_dash_recent_fragment_container, fragment)
                         fragmentTransaction.commit()
