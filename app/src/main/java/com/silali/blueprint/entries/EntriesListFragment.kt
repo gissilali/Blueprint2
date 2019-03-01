@@ -29,7 +29,7 @@ class EntriesListFragment : Fragment() {
          bundle?.let {
              val entryType = bundle.getString("entry_type")
              initializeRecentList(view, entryType)
-         }
+        }
 
 
 

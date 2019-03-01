@@ -1,7 +1,5 @@
 package com.silali.blueprint.entries
 
-import androidx.annotation.Nullable
-import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieEntry
 
 class EntriesController {

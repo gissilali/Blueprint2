@@ -95,7 +95,7 @@ class DashboardFragment : androidx.fragment.app.Fragment() {
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException("$context must implement OnFragmentInteractionListener") as Throwable
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
 
